@@ -1,1 +1,992 @@
-   <h1>Coming soon</h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Complice - Dépannage informatique à domicile</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #1a3a5c;
+      --navy2:   #122944;
+      --blue:    #2563a8;
+      --blue2:   #1d4f8a;
+      --sky:     #daeaf7;
+      --sky2:    #eef5fc;
+      --warm:    #f7f3ec;
+      --warm2:   #efe9df;
+      --accent:  #e07b2a;
+      --accent2: #c9681e;
+      --text:    #1c2730;
+      --muted:   #5a6a7a;
+      --white:   #ffffff;
+      --radius:  16px;
+      --radius2: 24px;
+      --shadow:  0 4px 32px rgba(26,58,92,0.10);
+      --shadow2: 0 12px 48px rgba(26,58,92,0.16);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 17px;
+      color: var(--text);
+      background: var(--warm);
+      line-height: 1.75;
+      overflow-x: hidden;
+    }
+
+    /* ─── LANG BAR ─── */
+    #lang-bar {
+      background: var(--navy2);
+      padding: 9px 40px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 8px;
+    }
+    .lang-btn {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      color: rgba(255,255,255,0.75);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px; font-weight: 600;
+      letter-spacing: 0.6px;
+      padding: 5px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: #fff; }
+    .lang-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ─── HEADER ─── */
+    header {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(26,58,92,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    nav {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      position: relative;
+    }
+    .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--navy);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      letter-spacing: -0.3px;
+    }
+    .logo-mark {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 12px rgba(37,99,168,0.3);
+    }
+    .logo-mark svg { width: 24px; height: 24px; fill: #fff; }
+    nav ul { list-style: none; display: flex; align-items: center; gap: 4px; }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+    nav ul li a:hover { color: var(--navy); background: var(--sky2); }
+    .nav-cta {
+      background: var(--accent) !important;
+      color: #fff !important;
+      font-weight: 600 !important;
+      padding: 9px 22px !important;
+      border-radius: 30px !important;
+      box-shadow: 0 4px 14px rgba(224,123,42,0.35) !important;
+    }
+    .nav-cta:hover { background: var(--accent2) !important; transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; background: none; border: none; cursor: pointer;
+      padding: 8px; border-radius: 8px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2.5px; background: var(--navy); border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* ─── HERO ─── */
+    #hero {
+      background: var(--navy2);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 40px 90px;
+    }
+    .hero-bg { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+    .hero-bg-circle1 {
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,168,0.4) 0%, transparent 70%);
+      top: -200px; right: -150px;
+    }
+    .hero-bg-circle2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(224,123,42,0.15) 0%, transparent 70%);
+      bottom: -100px; left: 10%;
+    }
+    .hero-bg-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .hero-bg-line {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 800px; margin: 0 auto;
+      text-align: center;
+    }
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 30px;
+      padding: 7px 20px;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.8px; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-pill .dot {
+      width: 7px; height: 7px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    #hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(36px, 5.5vw, 58px);
+      color: #fff;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+    #hero h1 em { font-style: italic; color: rgba(255,255,255,0.72); }
+    .hero-slogan {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 44px;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; justify-content: center;
+      flex-wrap: wrap; margin-bottom: 56px;
+    }
+    .btn-hero-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--accent); color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 600;
+      padding: 15px 32px; border-radius: 40px;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(224,123,42,0.4);
+      transition: all 0.2s;
+    }
+    .btn-hero-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 10px 32px rgba(224,123,42,0.5); }
+    .btn-hero-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.9);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 500;
+      padding: 14px 30px; border-radius: 40px;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      transition: all 0.2s;
+    }
+    .btn-hero-secondary:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.4); }
+    .hero-stats {
+      display: flex; justify-content: center;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 40px; flex-wrap: wrap;
+    }
+    .hero-stat {
+      flex: 1; min-width: 130px;
+      padding: 0 28px; text-align: center;
+      position: relative;
+    }
+    .hero-stat + .hero-stat::before {
+      content: ''; position: absolute; left: 0; top: 10%; bottom: 10%;
+      width: 1px; background: rgba(255,255,255,0.1);
+    }
+    .hero-stat-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px; color: #fff;
+      line-height: 1; margin-bottom: 6px;
+    }
+    .hero-stat-num .acc { color: var(--accent); }
+    .hero-stat-label { font-size: 12px; color: rgba(255,255,255,0.45); font-weight: 500; letter-spacing: 0.3px; }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 88px 40px; }
+    .section-inner { max-width: 1160px; margin: 0 auto; }
+    .section-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 16px;
+    }
+    .section-eyebrow::before {
+      content: ''; width: 20px; height: 2px;
+      background: var(--accent); display: inline-block; border-radius: 2px;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      color: var(--navy); line-height: 1.2;
+      letter-spacing: -0.3px; margin-bottom: 14px;
+    }
+    .section-lead {
+      font-size: 17px; color: var(--muted);
+      max-width: 560px; line-height: 1.8; margin-bottom: 52px;
+    }
+
+    /* ─── SERVICES ─── */
+    #services { background: var(--warm); }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .svc-card {
+      background: var(--white);
+      border-radius: var(--radius2);
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(26,58,92,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .svc-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--accent));
+      border-radius: var(--radius2) var(--radius2) 0 0;
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .svc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow2); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-icon-wrap {
+      width: 56px; height: 56px;
+      background: var(--sky2); border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; margin-bottom: 20px;
+    }
+    .svc-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 21px; color: var(--navy);
+      margin-bottom: 18px; letter-spacing: -0.2px;
+    }
+    .svc-card ul { list-style: none; }
+    .svc-card ul li {
+      display: flex; align-items: flex-start; gap: 10px;
+      padding: 7px 0; font-size: 15px; color: var(--muted);
+      line-height: 1.55;
+      border-bottom: 1px solid rgba(26,58,92,0.05);
+    }
+    .svc-card ul li:last-child { border-bottom: none; }
+    .svc-card ul li::before {
+      content: ''; width: 18px; height: 18px; min-width: 18px;
+      background: var(--sky);
+      border-radius: 50%;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='8' viewBox='0 0 10 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4L3.5 6.5L9 1' stroke='%232563a8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center;
+      margin-top: 2px; flex-shrink: 0;
+    }
+
+    /* ─── PRICING ─── */
+    #pricing { background: var(--navy); position: relative; overflow: hidden; }
+    #pricing::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    #pricing .section-eyebrow { color: rgba(255,255,255,0.45); }
+    #pricing .section-eyebrow::before { background: var(--accent); }
+    #pricing h2 { color: #fff; }
+    #pricing .section-lead { color: rgba(255,255,255,0.5); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .price-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius2);
+      padding: 32px 24px; text-align: center;
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .price-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+    .price-card.featured {
+      background: var(--accent); border-color: var(--accent);
+      box-shadow: 0 8px 32px rgba(224,123,42,0.4);
+    }
+    .price-card.featured:hover { background: var(--accent2); }
+    .price-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: rgba(255,255,255,0.2); color: #fff;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .price-icon { font-size: 32px; margin-bottom: 14px; }
+    .price-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 17px; color: rgba(255,255,255,0.85); margin-bottom: 12px;
+    }
+    .price-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 46px; color: #fff; line-height: 1; margin-bottom: 8px;
+    }
+    .price-num sup { font-size: 22px; vertical-align: top; margin-top: 10px; }
+    .price-sub { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.5; }
+    .price-card.featured .price-sub { color: rgba(255,255,255,0.75); }
+    .price-note-box {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 20px 28px;
+      display: flex; align-items: center; gap: 14px;
+      font-size: 15px; color: rgba(255,255,255,0.5);
+    }
+    .price-note-box .pn-icon { font-size: 22px; flex-shrink: 0; }
+
+    /* ─── BOOKING CTA BLOCK ─── */
+    .booking-cta-wrap {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 32px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius2);
+      padding: 28px 32px;
+    }
+    .booking-cta-text .bct-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .booking-cta-text .bct-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+      max-width: 480px;
+    }
+    .btn-booking {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; font-weight: 700;
+      padding: 16px 28px;
+      border-radius: 40px;
+      text-decoration: none; border: none; cursor: pointer;
+      box-shadow: 0 6px 20px rgba(224,123,42,0.4);
+      transition: all 0.2s;
+      white-space: nowrap;
+      text-align: center;
+      min-width: 200px;
+    }
+    .btn-booking:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(224,123,42,0.5); }
+
+    /* ─── DIAGNOSTIC BANNER ─── */
+    .diagnostic-banner {
+      background: linear-gradient(135deg, var(--sky2) 0%, #ddf0ff 100%);
+      border: 1.5px solid rgba(37,99,168,0.18);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .diagnostic-banner .db-icon {
+      font-size: 28px; flex-shrink: 0; margin-top: 2px;
+    }
+    .diagnostic-banner .db-title {
+      font-weight: 700; font-size: 15px;
+      color: var(--navy); margin-bottom: 4px;
+    }
+    .diagnostic-banner .db-text {
+      font-size: 14px; color: var(--muted); line-height: 1.6;
+    }
+
+    @media (max-width: 700px) {
+      .booking-cta-wrap {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 22px 20px;
+      }
+      .btn-booking { width: 100%; min-width: unset; }
+    }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--white); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+    .about-visual-wrap { position: relative; }
+    .about-visual {
+      background: linear-gradient(145deg, var(--navy) 0%, var(--blue2) 100%);
+      border-radius: var(--radius2);
+      padding: 56px 44px; color: #fff;
+      position: relative; overflow: hidden;
+    }
+    .about-visual::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .about-visual::after {
+      content: ''; position: absolute; bottom: -40px; left: -40px;
+      width: 150px; height: 150px; border-radius: 50%;
+      background: rgba(224,123,42,0.1);
+    }
+    .about-big-icon { font-size: 56px; margin-bottom: 20px; display: block; position: relative; z-index: 1; }
+    .about-quote {
+      font-family: 'DM Serif Display', serif;
+      font-style: italic; font-size: 22px; line-height: 1.5;
+      color: rgba(255,255,255,0.9); position: relative; z-index: 1;
+    }
+    .about-quote::before {
+      content: '"'; font-size: 80px; color: rgba(255,255,255,0.07);
+      position: absolute; top: -24px; left: -8px;
+      font-family: 'DM Serif Display', serif; line-height: 1;
+    }
+    .about-float-badge {
+      position: absolute; bottom: -20px; right: -16px;
+      background: var(--accent); color: #fff;
+      border-radius: 16px; padding: 16px 20px;
+      box-shadow: 0 8px 24px rgba(224,123,42,0.4);
+      text-align: center; min-width: 110px;
+    }
+    .afb-num { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1; display: block; }
+    .afb-label { font-size: 11px; font-weight: 600; letter-spacing: 0.5px; opacity: 0.85; }
+    .about-text p { font-size: 17px; color: var(--muted); margin-bottom: 18px; line-height: 1.85; }
+    .about-highlight {
+      background: var(--sky2);
+      border-left: 3px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      padding: 18px 22px; font-size: 16px;
+      font-weight: 500; color: var(--navy); margin-top: 8px; line-height: 1.6;
+    }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--warm); }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 56px; align-items: start; }
+    .contact-left h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: var(--navy); margin-bottom: 16px;
+    }
+    .contact-philosophy {
+      background: var(--white); border-radius: var(--radius);
+      padding: 20px 22px; font-size: 15px; color: var(--muted);
+      line-height: 1.7; margin-bottom: 28px;
+      border-left: 3px solid var(--accent);
+    }
+    .contact-detail { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+    .cd-icon {
+      width: 46px; height: 46px; min-width: 46px;
+      background: var(--white);
+      border: 1px solid rgba(26,58,92,0.08);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(26,58,92,0.06);
+    }
+    .cd-text strong { display: block; font-size: 12px; color: var(--muted); font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 3px; }
+    .cd-text span { font-size: 16px; color: var(--navy); font-weight: 500; }
+    .btn-call-big {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--navy); color: #fff;
+      font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 600;
+      padding: 17px 32px; border-radius: 40px;
+      text-decoration: none; border: none; cursor: pointer;
+      width: 100%; text-align: center; margin-top: 24px;
+      box-shadow: 0 6px 20px rgba(26,58,92,0.25);
+      transition: all 0.2s;
+    }
+    .btn-call-big:hover { background: var(--blue); transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,58,92,0.3); }
+
+    .contact-form {
+      background: var(--white); border-radius: var(--radius2);
+      padding: 44px 40px; box-shadow: var(--shadow2);
+      border: 1px solid rgba(26,58,92,0.06);
+    }
+    .contact-form h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px; color: var(--navy); margin-bottom: 28px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 12px; font-weight: 700;
+      color: var(--muted); letter-spacing: 0.8px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 13px 16px;
+      border: 1.5px solid rgba(26,58,92,0.12);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px; color: var(--text);
+      background: #fafbfc;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none; appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37,99,168,0.1);
+      background: #fff;
+    }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+      color: #fff; border: none; border-radius: 40px; padding: 16px;
+      font-family: 'DM Sans', sans-serif; font-size: 17px; font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(37,99,168,0.3);
+      transition: all 0.2s;
+    }
+    .btn-submit:hover { opacity: 0.92; transform: translateY(-2px); }
+    #form-success {
+      display: none;
+      background: #edfaf3; border: 1.5px solid #34d07b;
+      border-radius: 10px; padding: 16px 20px;
+      text-align: center; color: #1a7a40;
+      font-weight: 600; font-size: 16px; margin-top: 16px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--navy2); padding: 40px; text-align: center; }
+    .footer-logo { font-family: 'DM Serif Display', serif; font-size: 22px; color: #fff; margin-bottom: 10px; }
+    footer p { font-size: 14px; color: rgba(255,255,255,0.4); }
+
+    /* ─── ANIMATIONS ─── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 960px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    }
+    @media (max-width: 720px) {
+      .hamburger { display: flex; }
+      nav { padding: 14px 20px; flex-wrap: nowrap; position: relative; }
+      nav ul {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        background: var(--white); box-shadow: 0 8px 24px rgba(26,58,92,0.12);
+        flex-direction: column; padding: 16px 20px 20px;
+        gap: 4px; z-index: 200;
+      }
+      nav ul.open { display: flex; }
+      nav ul li a { font-size: 17px; padding: 12px 16px; display: block; color: var(--navy); }
+      .nav-cta { margin-top: 6px; border-radius: 10px !important; }
+      .contact-layout { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 22px; }
+    }
+    @media (max-width: 600px) {
+      #lang-bar { padding: 8px 18px; }
+      section { padding: 60px 20px; }
+      #hero { padding: 70px 20px 60px; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn-hero-primary, .btn-hero-secondary { width: 100%; max-width: 300px; justify-content: center; }
+      .hero-stat { padding: 0 14px; }
+      .hero-stat-num { font-size: 26px; }
+      .pricing-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .price-card { padding: 22px 14px; }
+      .price-num { font-size: 36px; }
+      .form-row { grid-template-columns: 1fr; }
+      .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LANG BAR -->
+<div id="lang-bar">
+  <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">Français</button>
+  <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <nav>
+    <a href="#hero" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm4-4h8v2h-8z"/></svg>
+      </div>
+      Tech Complice
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="nav-menu">
+      <li><a href="#services" data-fr="Services" data-en="Services" onclick="closeMenu()">Services</a></li>
+      <li><a href="#pricing" data-fr="Tarifs" data-en="Pricing" onclick="closeMenu()">Tarifs</a></li>
+      <li><a href="#about" data-fr="À propos" data-en="About" onclick="closeMenu()">À propos</a></li>
+      <li><a href="#contact" class="nav-cta" data-fr="📞 Nous contacter" data-en="📞 Contact us" onclick="closeMenu()">📞 Nous contacter</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-circle1"></div>
+    <div class="hero-bg-circle2"></div>
+    <div class="hero-bg-grid"></div>
+    <div class="hero-bg-line"></div>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-pill">
+      <span class="dot"></span>
+      <span data-fr="Service à domicile · Laval, Québec" data-en="Home Service · Laval, Quebec">Service à domicile · Laval, Québec</span>
+    </div>
+    <h1>
+      <span data-fr="L'aide informatique <em>qui vient à vous</em>" data-en="Computer help <em>that comes to you</em>">L'aide informatique <em>qui vient à vous</em></span>
+    </h1>
+    <p class="hero-slogan" data-fr="Restez dans le confort de votre foyer, on s'occupe de vous" data-en="Stay in the comfort of your home, we take care of you">Restez dans le confort de votre foyer, on s'occupe de vous</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-hero-primary" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</a>
+      <a href="#services" class="btn-hero-secondary" data-fr="Voir nos services" data-en="See Our Services">Voir nos services</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">15<span class="acc">+</span></div>
+        <div class="hero-stat-label" data-fr="Ans d'expérience" data-en="Years of experience">Ans d'expérience</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">🏠</div>
+        <div class="hero-stat-label" data-fr="À domicile, chez vous" data-en="Right at your home">À domicile, chez vous</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">😊</div>
+        <div class="hero-stat-label" data-fr="Explications simples" data-en="Simple explanations">Explications simples</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">📍</div>
+        <div class="hero-stat-label" data-fr="Laval uniquement" data-en="Laval only">Laval uniquement</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-eyebrow" data-fr="Ce qu'on fait" data-en="What We Do">Ce qu'on fait</div>
+    <h2 data-fr="Nos services à domicile" data-en="Our Home Services">Nos services à domicile</h2>
+    <p class="section-lead" data-fr="Des solutions concrètes, expliquées simplement, directement chez vous à Laval." data-en="Practical solutions, explained simply, right at your home in Laval.">Des solutions concrètes, expliquées simplement, directement chez vous à Laval.</p>
+    <div class="services-grid">
+      <div class="svc-card fade-up">
+        <div class="svc-icon-wrap">🔧</div>
+        <h3 data-fr="Dépannage et Maintenance" data-en="Troubleshooting and Maintenance">Dépannage et Maintenance</h3>
+        <ul>
+          <li data-fr="Résolution de problèmes de lenteur ou blocage (ordinateur, tablette, téléphone)" data-en="Fix slowness or freezing (computer, tablet, phone)">Résolution de problèmes de lenteur ou blocage (ordinateur, tablette, téléphone)</li>
+          <li data-fr="Nettoyage de fichiers inutiles et gestion du stockage" data-en="Cleanup of unnecessary files and storage management">Nettoyage de fichiers inutiles et gestion du stockage</li>
+          <li data-fr="Suppression de virus et installation d'antivirus" data-en="Virus removal and antivirus installation">Suppression de virus et installation d'antivirus</li>
+          <li data-fr="Réinstallation de Windows ou remise à zéro complète du système" data-en="Windows reinstallation or full system reset">Réinstallation de Windows ou remise à zéro complète du système</li>
+          <li data-fr="Mise à jour du système (Windows, iOS, Android) et du BIOS si nécessaire" data-en="System updates (Windows, iOS, Android) and BIOS update if needed">Mise à jour du système (Windows, iOS, Android) et du BIOS si nécessaire</li>
+          <li data-fr="Diagnostic matériel de base (RAM, disque dur, périphériques)" data-en="Basic hardware diagnostics (RAM, hard drive, peripherals)">Diagnostic matériel de base (RAM, disque dur, périphériques)</li>
+        </ul>
+      </div>
+      <div class="svc-card fade-up">
+        <div class="svc-icon-wrap">📶</div>
+        <h3 data-fr="Réseau et Périphériques" data-en="Network and Devices">Réseau et Périphériques</h3>
+        <ul>
+          <li data-fr="Configuration et dépannage du Wi-Fi à domicile" data-en="Wi-Fi setup and troubleshooting at home">Configuration et dépannage du Wi-Fi à domicile</li>
+          <li data-fr="Aide pour imprimantes et périphériques" data-en="Help with printers and peripherals">Aide pour imprimantes et périphériques</li>
+          <li data-fr="Connexion d'appareils mobiles au réseau" data-en="Connecting mobile devices to the network">Connexion d'appareils mobiles au réseau</li>
+          <li data-fr="Partage de fichiers simplifié entre appareils" data-en="Simplified file sharing between devices">Partage de fichiers simplifié entre appareils</li>
+          <li data-fr="Résolution de problèmes de branchements (télévision, barre de son, périphériques)" data-en="Troubleshooting connections (TV, soundbar, peripherals)">Résolution de problèmes de branchements (télévision, barre de son, périphériques)</li>
+        </ul>
+      </div>
+      <div class="svc-card fade-up">
+        <div class="svc-icon-wrap">🎓</div>
+        <h3 data-fr="Formation et Accompagnement" data-en="Training and Guidance">Formation et Accompagnement</h3>
+        <ul>
+          <li data-fr="Utilisation du navigateur, courriel (Gmail, Outlook), WhatsApp, Zoom" data-en="Web browser, email (Gmail, Outlook), WhatsApp, Zoom">Utilisation du navigateur, courriel (Gmail, Outlook), WhatsApp, Zoom</li>
+          <li data-fr="Aide à la visioconférence et partage de fichiers" data-en="Video calls and file sharing assistance">Aide à la visioconférence et partage de fichiers</li>
+          <li data-fr="Transfert et sauvegarde de vos données, photos et documents importants d'un appareil à un autre (clé USB, disque externe, nuage)" data-en="Transfer and backup of your data, photos and important documents from one device to another (USB, external drive, cloud)">Transfert et sauvegarde de vos données, photos et documents importants d'un appareil à un autre (clé USB, disque externe, nuage)</li>
+          <li data-fr="Récupération de mot de passe oublié (courriel, Facebook, comptes en ligne)" data-en="Forgotten password recovery (email, Facebook, online accounts)">Récupération de mot de passe oublié (courriel, Facebook, comptes en ligne)</li>
+          <li data-fr="Sécurité en ligne : mots de passe et arnaques par courriel" data-en="Online safety: passwords and email scams">Sécurité en ligne : mots de passe et arnaques par courriel</li>
+          <li data-fr="Prévention du phishing et fraude avec exemples concrets" data-en="Phishing and fraud prevention with real examples">Prévention du phishing et fraude avec exemples concrets</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="section-inner">
+    <div class="section-eyebrow" data-fr="Tarification claire" data-en="Clear Pricing">Tarification claire</div>
+    <h2 data-fr="Des tarifs simples et transparents" data-en="Simple and Transparent Pricing">Des tarifs simples et transparents</h2>
+    <p class="section-lead" data-fr="Pas de surprise. Vous savez exactement ce que vous payez avant le déplacement." data-en="No surprises. You know exactly what you pay before the visit.">Pas de surprise. Vous savez exactement ce que vous payez avant le déplacement.</p>
+    <div class="pricing-grid">
+      <div class="price-card fade-up">
+        <div class="price-icon">🚗</div>
+        <h3 data-fr="Frais de déplacement" data-en="Travel Fee">Frais de déplacement</h3>
+        <div class="price-num"><sup>$</sup>10<span style="font-size:20px"> à </span>20</div>
+        <div class="price-sub" data-fr="Selon la distance à Laval" data-en="Based on distance within Laval">Selon la distance à Laval</div>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-icon">⏱️</div>
+        <h3 data-fr="Première heure" data-en="First Hour">Première heure</h3>
+        <div class="price-num"><sup>$</sup>50</div>
+        <div class="price-sub" data-fr="Tarif de base pour l'intervention" data-en="Base rate for the service call">Tarif de base pour l'intervention</div>
+      </div>
+      <div class="price-card fade-up">
+        <div class="price-icon">➕</div>
+        <h3 data-fr="Tranche supplémentaire" data-en="Additional Time">Tranche supplémentaire</h3>
+        <div class="price-num"><sup>$</sup>25</div>
+        <div class="price-sub" data-fr="Par 30 minutes additionnelles" data-en="Per additional 30 minutes">Par 30 minutes additionnelles</div>
+      </div>
+      <div class="price-card featured fade-up">
+        <div class="price-badge" data-fr="Urgent" data-en="Urgent">Urgent</div>
+        <div class="price-icon">🚨</div>
+        <h3 data-fr="Demande urgente" data-en="Urgent Request">Demande urgente</h3>
+        <div class="price-num"><sup>$</sup>100</div>
+        <div class="price-sub" data-fr="Service garanti en moins de 24h" data-en="Service guaranteed within 24 hours">Service garanti en moins de 24h</div>
+      </div>
+    </div>
+    <div class="price-note-box fade-up">
+      <span class="pn-icon">💡</span>
+      <span data-fr="Les frais de déplacement varient selon votre secteur à Laval. Le tarif exact vous sera confirmé lors de la prise de rendez-vous." data-en="Travel fees vary depending on your area within Laval. The exact fee will be confirmed when booking your appointment.">Les frais de déplacement varient selon votre secteur à Laval. Le tarif exact vous sera confirmé lors de la prise de rendez-vous.</span>
+    </div>
+    <div class="booking-cta-wrap fade-up">
+      <div class="booking-cta-text">
+        <div class="bct-title" data-fr="Vous êtes déjà prêt à me faire confiance ?" data-en="Ready to book your appointment?">Vous êtes déjà prêt à me faire confiance ?</div>
+        <div class="bct-sub" data-fr="Réservez votre intervention informatique en quelques clics. Votre créneau est bloqué dès le paiement de la réservation. Vous pouvez annuler sans frais jusqu'à 24 h avant. Simple, rapide et sécurisé." data-en="Book your tech support visit in just a few clicks. Your time slot is secured upon payment. You can cancel free of charge up to 24 hours before. Simple, fast, and secure.">Réservez votre intervention informatique en quelques clics. Votre créneau est bloqué dès le paiement de la réservation. Vous pouvez annuler sans frais jusqu'à 24 h avant. Simple, rapide et sécurisé.</div>
+      </div>
+      <a href="#contact" class="btn-booking" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual-wrap fade-up">
+        <div class="about-visual">
+          <span class="about-big-icon">💻</span>
+          <p class="about-quote" data-fr="L'informatique, ça devrait être simple pour tout le monde." data-en="Technology should be simple for everyone.">L'informatique, ça devrait être simple pour tout le monde.</p>
+        </div>
+        <div class="about-float-badge">
+          <span class="afb-num">15<span style="font-size:16px">+</span></span>
+          <span class="afb-label" data-fr="ans d'expérience" data-en="years experience">ans d'expérience</span>
+        </div>
+      </div>
+      <div class="about-text fade-up">
+        <div class="section-eyebrow" data-fr="Qui sommes-nous" data-en="Who We Are">Qui sommes-nous</div>
+        <h2 data-fr="À votre service, à domicile" data-en="At Your Service, At Home">À votre service, à domicile</h2>
+        <p data-fr="Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui entièrement à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien." data-en="Passionate about technology for over 15 years, I now dedicate myself fully to helping Laval residents feel more comfortable with everyday technology.">Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui entièrement à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien.</p>
+        <p data-fr="Après plusieurs années dédiées au service à la clientèle, j'ai décidé d'être à mon propre compte pour offrir un service personnalisé, patient et accessible à chaque client." data-en="After years dedicated to customer service, I decided to work independently to offer a personalized, patient, and accessible service to every client.">Après plusieurs années dédiées au service à la clientèle, j'ai décidé d'être à mon propre compte pour offrir un service personnalisé, patient et accessible à chaque client.</p>
+        <div class="about-highlight" data-fr="🏠 Je me déplace chez vous, à votre rythme, dans le confort de votre foyer." data-en="🏠 I come to you, at your pace, in the comfort of your home.">🏠 Je me déplace chez vous, à votre rythme, dans le confort de votre foyer.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-eyebrow" data-fr="Nous joindre" data-en="Get in Touch">Nous joindre</div>
+    <h2 data-fr="Prenez rendez-vous ou posez une question" data-en="Book an Appointment or Ask a Question">Prenez rendez-vous ou posez une question</h2>
+    <div class="contact-layout">
+      <div class="contact-left fade-up">
+        <div class="contact-philosophy">
+          💬 <span data-fr="Ma philosophie : il n'y a pas de question stupide ! Que ce soit pour un petit bobo ou un gros problème, n'hésitez jamais à m'écrire ou à m'appeler. Je suis là pour vous, sans jugement et avec le sourire. 😊" data-en="My philosophy: there's no such thing as a stupid question! Whether it's a small hiccup or a big problem, never hesitate to write or call me. I am here for you, judgment-free and with a smile. 😊">Ma philosophie : il n'y a pas de question stupide ! Que ce soit pour un petit bobo ou un gros problème, n'hésitez jamais à m'écrire ou à m'appeler. Je suis là pour vous, sans jugement et avec le sourire. 😊</span>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">📍</div>
+          <div class="cd-text">
+            <strong data-fr="Zone desservie" data-en="Service Area">Zone desservie</strong>
+            <span data-fr="Laval, Québec (seulement)" data-en="Laval, Quebec (only)">Laval, Québec (seulement)</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">📞</div>
+          <div class="cd-text">
+            <strong data-fr="Téléphone" data-en="Phone">Téléphone</strong>
+            <span><a href="tel:+15145526067" style="color:var(--navy);text-decoration:none;font-weight:600;">(514) 552-6067</a></span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">📧</div>
+          <div class="cd-text">
+            <strong data-fr="Courriel" data-en="Email">Courriel</strong>
+            <span data-fr="À venir prochainement" data-en="Coming soon">À venir prochainement</span>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="cd-icon">🕐</div>
+          <div class="cd-text">
+            <strong data-fr="Disponibilité" data-en="Availability">Disponibilité</strong>
+            <span data-fr="Lundi au Vendredi : 9h30 à 15h30 | Samedi : 10h à 16h" data-en="Monday to Friday: 9:30am to 3:30pm | Saturday: 10am to 4pm">Lundi au Vendredi : 9h30 à 15h30 | Samedi : 10h à 16h</span>
+          </div>
+        </div>
+        <a href="tel:+15145526067" class="btn-call-big">
+          📞 <span data-fr="Appeler maintenant" data-en="Call Now">Appeler maintenant</span>
+        </a>
+      </div>
+      <div class="contact-form fade-up">
+        <h3 data-fr="Envoyer un message" data-en="Send a Message">Envoyer un message</h3>
+        <div class="diagnostic-banner">
+          <span class="db-icon">📞</span>
+          <div>
+            <div class="db-title" data-fr="Diagnostic téléphonique gratuit (5 à 10 min)" data-en="Free phone diagnostic (5 to 10 min)">Diagnostic téléphonique gratuit (5 à 10 min)</div>
+            <div class="db-text" data-fr="Avant de vous déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis." data-en="Before booking a visit, I offer a quick phone diagnostic to better understand your issue and give you an idea of the service needed.">Avant de vous déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis.</div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label data-fr="Prénom" data-en="First Name">Prénom</label>
+            <input type="text" id="f-name" placeholder="Marie" />
+          </div>
+          <div class="form-group">
+            <label data-fr="Nom" data-en="Last Name">Nom</label>
+            <input type="text" id="f-lastname" placeholder="Tremblay" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label data-fr="Téléphone" data-en="Phone">Téléphone</label>
+          <input type="tel" id="f-phone" placeholder="514 123-4567" />
+        </div>
+        <div class="form-group">
+          <label data-fr="Type de demande" data-en="Request Type">Type de demande</label>
+          <select id="f-type">
+            <option value="" data-fr="Choisissez..." data-en="Choose...">Choisissez...</option>
+            <option value="rdv" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</option>
+            <option value="question" data-fr="❓ Poser une question" data-en="❓ Ask a Question">❓ Poser une question</option>
+            <option value="urgence" data-fr="🚨 Urgence informatique" data-en="🚨 Tech Emergency">🚨 Urgence informatique</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label data-fr="Votre message" data-en="Your Message">Votre message</label>
+          <textarea id="f-message"
+            data-fr-placeholder="Décrivez votre problème ou votre question..."
+            data-en-placeholder="Describe your issue or question..."
+            placeholder="Décrivez votre problème ou votre question..."></textarea>
+        </div>
+        <button class="btn-submit" onclick="submitForm()" data-fr="✉️ Envoyer le message" data-en="✉️ Send Message">✉️ Envoyer le message</button>
+        <div id="form-success">
+          <span data-fr="✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais." data-en="✅ Thank you! Your message has been sent. We will get back to you as soon as possible.">✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Tech Complice</div>
+  <p data-fr="Dépannage informatique à domicile · Laval, Québec" data-en="Home Computer Support · Laval, Quebec">Dépannage informatique à domicile · Laval, Québec</p>
+  <p style="margin-top:8px;" data-fr="© 2025 Tech Complice. Tous droits réservés" data-en="© 2025 Tech Complice. All rights reserved">© 2025 Tech Complice. Tous droits réservés</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('nav-menu').classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('nav-menu').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    if (!document.querySelector('nav').contains(e.target)) closeMenu();
+  });
+
+  let currentLang = 'fr';
+  function setLang(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') return;
+      const text = el.getAttribute('data-' + lang);
+      if (text) el.innerHTML = text;
+    });
+    document.querySelectorAll('[data-fr-placeholder]').forEach(el => {
+      const ph = el.getAttribute('data-' + lang + '-placeholder');
+      if (ph) el.placeholder = ph;
+    });
+    document.querySelectorAll('select option[data-fr]').forEach(opt => {
+      const text = opt.getAttribute('data-' + lang);
+      if (text) opt.textContent = text;
+    });
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  }
+
+  function submitForm() {
+    const name = document.getElementById('f-name').value.trim();
+    const phone = document.getElementById('f-phone').value.trim();
+    const msg = document.getElementById('f-message').value.trim();
+    if (!name || !phone || !msg) {
+      alert(currentLang === 'fr'
+        ? 'Veuillez remplir au minimum votre prénom, numéro de téléphone et message.'
+        : 'Please fill in at least your first name, phone number, and message.');
+      return;
+    }
+    document.getElementById('form-success').style.display = 'block';
+    ['f-name','f-lastname','f-phone','f-message'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('f-type').selectedIndex = 0;
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
