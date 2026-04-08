@@ -280,7 +280,10 @@
 
     /* ─── SERVICES ─── */
     #services { background: var(--warm); }
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    @media (max-width: 1200px) {
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+    }
     .svc-card {
       background: var(--white);
       border-radius: var(--radius2);
@@ -341,7 +344,7 @@
     #pricing .section-eyebrow::before { background: var(--accent); }
     #pricing h2 { color: #fff; }
     #pricing .section-lead { color: rgba(255,255,255,0.5); }
-    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
     .price-card {
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.1);
@@ -613,8 +616,8 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 960px) {
-      .services-grid { grid-template-columns: 1fr; }
-      .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: repeat(3, 1fr); }
       .about-grid { grid-template-columns: 1fr; gap: 48px; }
     }
     @media (max-width: 720px) {
@@ -640,6 +643,7 @@
       .btn-hero-primary, .btn-hero-secondary { width: 100%; max-width: 300px; justify-content: center; }
       .hero-stat { padding: 0 14px; }
       .hero-stat-num { font-size: 26px; }
+      .services-grid { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
       .price-card { padding: 22px 14px; }
       .price-num { font-size: 36px; }
@@ -701,7 +705,7 @@
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="hero-stat-num">15<span class="acc">+</span></div>
-        <div class="hero-stat-label" data-fr="Ans d'expérience" data-en="Years of experience">Ans d'expérience</div>
+        <div class="hero-stat-label" data-fr="Ans de passion techno" data-en="Years of tech passion">Ans de passion techno</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-num">🏠</div>
@@ -723,8 +727,8 @@
 <section id="services">
   <div class="section-inner">
     <div class="section-eyebrow" data-fr="Ce qu'on fait" data-en="What We Do">Ce qu'on fait</div>
-    <h2 data-fr="Nos services à domicile" data-en="Our Home Services">Nos services à domicile</h2>
-    <p class="section-lead" data-fr="Des solutions concrètes, expliquées simplement, directement chez vous à Laval." data-en="Practical solutions, explained simply, right at your home in Laval.">Des solutions concrètes, expliquées simplement, directement chez vous à Laval.</p>
+    <h2 data-fr="Nos services à domicile et à distance" data-en="Our Home &amp; Remote Services">Nos services à domicile et à distance</h2>
+    <p class="section-lead" data-fr="Des solutions concrètes, expliquées simplement, chez vous à Laval ou à distance, peu importe où vous êtes." data-en="Practical solutions, explained simply, at your home in Laval or remotely, wherever you are.">Des solutions concrètes, expliquées simplement, chez vous à Laval ou à distance, peu importe où vous êtes.</p>
     <div class="services-grid">
       <div class="svc-card fade-up">
         <div class="svc-icon-wrap">🔧</div>
@@ -757,8 +761,19 @@
           <li data-fr="Aide à la visioconférence et partage de fichiers" data-en="Video calls and file sharing assistance">Aide à la visioconférence et partage de fichiers</li>
           <li data-fr="Transfert et sauvegarde de vos données, photos et documents importants d'un appareil à un autre (clé USB, disque externe, nuage)" data-en="Transfer and backup of your data, photos and important documents from one device to another (USB, external drive, cloud)">Transfert et sauvegarde de vos données, photos et documents importants d'un appareil à un autre (clé USB, disque externe, nuage)</li>
           <li data-fr="Récupération de mot de passe oublié (courriel, Facebook, comptes en ligne)" data-en="Forgotten password recovery (email, Facebook, online accounts)">Récupération de mot de passe oublié (courriel, Facebook, comptes en ligne)</li>
-          <li data-fr="Sécurité en ligne : mots de passe et arnaques par courriel" data-en="Online safety: passwords and email scams">Sécurité en ligne : mots de passe et arnaques par courriel</li>
+          <li data-fr="Sécurité en ligne: mots de passe et arnaques par courriel" data-en="Online safety: passwords and email scams">Sécurité en ligne: mots de passe et arnaques par courriel</li>
           <li data-fr="Prévention du phishing et fraude avec exemples concrets" data-en="Phishing and fraud prevention with real examples">Prévention du phishing et fraude avec exemples concrets</li>
+        </ul>
+      </div>
+      <div class="svc-card fade-up">
+        <div class="svc-icon-wrap">🖥️</div>
+        <h3 data-fr="Aide à distance" data-en="Remote Support">Aide à distance</h3>
+        <ul>
+          <li data-fr="Assistance téléphonique: guidage étape par étape sans se déplacer" data-en="Phone support: step-by-step guidance without a home visit">Assistance téléphonique: guidage étape par étape sans se déplacer</li>
+          <li data-fr="Prise en main à distance: connexion sécurisée sur votre ordinateur pour régler le problème directement" data-en="Remote access: secure connection to your computer to fix the issue directly">Prise en main à distance: connexion sécurisée sur votre ordinateur pour régler le problème directement</li>
+          <li data-fr="Idéal pour les petits problèmes, questions rapides ou suivis après une visite" data-en="Ideal for minor issues, quick questions or follow-ups after a visit">Idéal pour les petits problèmes, questions rapides ou suivis après une visite</li>
+          <li data-fr="Aucun déplacement requis. C'est pratique et rapide." data-en="No travel required. Convenient and fast.">Aucun déplacement requis. C'est pratique et rapide.</li>
+          <li data-fr="Disponible pour Windows et Mac" data-en="Available for Windows and Mac">Disponible pour Windows et Mac</li>
         </ul>
       </div>
     </div>
@@ -797,6 +812,12 @@
         <div class="price-num"><sup>$</sup>100</div>
         <div class="price-sub" data-fr="Service garanti en moins de 24h" data-en="Service guaranteed within 24 hours">Service garanti en moins de 24h</div>
       </div>
+      <div class="price-card fade-up">
+        <div class="price-icon">🖥️</div>
+        <h3 data-fr="Aide à distance" data-en="Remote Support">Aide à distance</h3>
+        <div class="price-num"><sup>$</sup>30</div>
+        <div class="price-sub" data-fr="Par tranche de 30 minutes · Par téléphone ou connexion à distance" data-en="Per 30-minute block · By phone or remote connection">Par tranche de 30 minutes · Par téléphone ou connexion à distance</div>
+      </div>
     </div>
     <div class="price-note-box fade-up">
       <span class="pn-icon">💡</span>
@@ -823,13 +844,13 @@
         </div>
         <div class="about-float-badge">
           <span class="afb-num">15<span style="font-size:16px">+</span></span>
-          <span class="afb-label" data-fr="ans d'expérience" data-en="years experience">ans d'expérience</span>
+          <span class="afb-label" data-fr="ans de passion" data-en="years of passion">ans de passion</span>
         </div>
       </div>
       <div class="about-text fade-up">
         <div class="section-eyebrow" data-fr="Qui sommes-nous" data-en="Who We Are">Qui sommes-nous</div>
         <h2 data-fr="À votre service, à domicile" data-en="At Your Service, At Home">À votre service, à domicile</h2>
-        <p data-fr="Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui entièrement à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien." data-en="Passionate about technology for over 15 years, I now dedicate myself fully to helping Laval residents feel more comfortable with everyday technology.">Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui entièrement à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien.</p>
+        <p data-fr="Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien." data-en="With a passion for technology spanning over 15 years, I now dedicate myself to helping Laval residents feel more comfortable with everyday technology.">Passionné d'informatique depuis plus de 15 ans, je me consacre aujourd'hui à aider les résidents de Laval à se sentir plus à l'aise avec la technologie du quotidien.</p>
         <p data-fr="Après plusieurs années dédiées au service à la clientèle, j'ai décidé d'être à mon propre compte pour offrir un service personnalisé, patient et accessible à chaque client." data-en="After years dedicated to customer service, I decided to work independently to offer a personalized, patient, and accessible service to every client.">Après plusieurs années dédiées au service à la clientèle, j'ai décidé d'être à mon propre compte pour offrir un service personnalisé, patient et accessible à chaque client.</p>
         <div class="about-highlight" data-fr="🏠 Je me déplace chez vous, à votre rythme, dans le confort de votre foyer." data-en="🏠 I come to you, at your pace, in the comfort of your home.">🏠 Je me déplace chez vous, à votre rythme, dans le confort de votre foyer.</div>
       </div>
@@ -865,7 +886,7 @@
           <div class="cd-icon">📧</div>
           <div class="cd-text">
             <strong data-fr="Courriel" data-en="Email">Courriel</strong>
-            <span><a href="mailto:julien@techcomplice.ca" style="color:var(--navy);text-decoration:none;font-weight:600;">julien@techcomplice.ca</a></span>
+            <span><a href="/cdn-cgi/l/email-protection#543e21383d313a142031373c373b3924383d37317a3735" style="color:var(--navy);text-decoration:none;font-weight:600;"><span class="__cf_email__" data-cfemail="1e746b72777b705e6a7b7d767d71736e72777d7b307d7f">[email&#160;protected]</span></a></span>
           </div>
         </div>
         <div class="contact-detail">
@@ -885,7 +906,7 @@
           <span class="db-icon">📞</span>
           <div>
             <div class="db-title" data-fr="Diagnostic téléphonique gratuit (5 à 10 min)" data-en="Free phone diagnostic (5 to 10 min)">Diagnostic téléphonique gratuit (5 à 10 min)</div>
-            <div class="db-text" data-fr="Avant de vous déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis." data-en="Before booking a visit, I offer a quick phone diagnostic to better understand your issue and give you an idea of the service needed.">Avant de vous déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis.</div>
+            <div class="db-text" data-fr="Avant de me déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis." data-en="Before booking a visit, I offer a quick phone diagnostic to better understand your issue and give you an idea of the service needed.">Avant de me déplacer ou de planifier une visite, je vous offre un rapide diagnostic par téléphone pour mieux cerner votre problème et vous donner une idée du service requis.</div>
           </div>
         </div>
         <div class="form-row">
@@ -909,6 +930,7 @@
             <option value="rdv" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</option>
             <option value="question" data-fr="❓ Poser une question" data-en="❓ Ask a Question">❓ Poser une question</option>
             <option value="urgence" data-fr="🚨 Urgence informatique" data-en="🚨 Tech Emergency">🚨 Urgence informatique</option>
+            <option value="distance" data-fr="🖥️ Aide à distance (téléphone ou accès à distance)" data-en="🖥️ Remote Support (phone or remote access)">🖥️ Aide à distance (téléphone ou accès à distance)</option>
           </select>
         </div>
         <div class="form-group">
@@ -949,9 +971,15 @@
       <!-- Q3 -->
       <div style="background:var(--white); border-radius:var(--radius); padding:28px 32px; box-shadow:var(--shadow);">
         <div style="font-weight:700; font-size:18px; color:var(--navy); margin-bottom:12px;" data-fr="🍎 Pouvez-vous m'aider avec mon iPad ou d'autres produits Apple ?" data-en="🍎 Can you help me with my iPad or other Apple products?">🍎 Pouvez-vous m'aider avec mon iPad ou d'autres produits Apple ?</div>
-        <p style="color:var(--muted); line-height:1.8;" data-fr="Tout à fait ! Ayant travaillé par le passé pour un sous-traitant d'Apple, je suis généralement en mesure de vous assister avec la grande majorité des tâches sur leurs produits que ce soit un iPad, un iPhone ou un Mac. N'hésitez pas à me décrire votre situation, et on trouvera une solution ensemble." data-en="Absolutely! Having previously worked for an Apple subcontractor, I am generally able to assist you with the vast majority of tasks on their products whether it's an iPad, iPhone, or Mac. Don't hesitate to describe your situation, and we'll find a solution together.">Tout à fait ! Ayant travaillé par le passé pour un sous-traitant d'Apple, je suis généralement en mesure de vous assister avec la grande majorité des tâches sur leurs produits que ce soit un iPad, un iPhone ou un Mac. N'hésitez pas à me décrire votre situation, et on trouvera une solution ensemble.</p>
+        <p style="color:var(--muted); line-height:1.8;" data-fr="Tout à fait ! Ayant travaillé par le passé pour un sous-traitant d'Apple, je suis généralement en mesure de vous assister avec la grande majorité des tâches sur leurs produits que ce soit un iPad, un iPhone ou un Mac. N'hésitez pas à me décrire votre situation et on trouvera une solution !" data-en="Absolutely! Having previously worked for an Apple subcontractor, I am generally able to assist you with the vast majority of tasks on their products whether it's an iPad, iPhone, or Mac. Don't hesitate to describe your situation and we'll find a solution!">Tout à fait ! Ayant travaillé par le passé pour un sous-traitant d'Apple, je suis généralement en mesure de vous assister avec la grande majorité des tâches sur leurs produits que ce soit un iPad, un iPhone ou un Mac. N'hésitez pas à me décrire votre situation et on trouvera une solution !</p>
       </div>
 
+
+      <!-- Q_REMOTE -->
+      <div style="background:var(--white); border-radius:var(--radius); padding:28px 32px; box-shadow:var(--shadow);">
+        <div style="font-weight:700; font-size:18px; color:var(--navy); margin-bottom:12px;" data-fr="🖥️ Comment fonctionne l'aide à distance ?" data-en="🖥️ How does remote support work?">🖥️ Comment fonctionne l'aide à distance ?</div>
+        <p style="color:var(--muted); line-height:1.8;" data-fr="L'aide à distance, c'est simple : vous n'avez pas à bouger ! Je peux vous guider par téléphone étape par étape, ou me connecter directement sur votre ordinateur (avec votre permission) à l'aide d'un logiciel sécurisé pour régler le problème comme si j'étais assis à côté de vous. C'est idéal pour les petits dépannages, les questions rapides ou les suivis après une visite. Le tarif est de 30 $ par tranche de 30 minutes." data-en="Remote support is simple — no need to move! I can guide you step by step over the phone, or connect directly to your computer (with your permission) using a secure tool to fix the issue as if I were right beside you. It's ideal for minor troubleshooting, quick questions, or follow-ups after a visit. The rate is $30 per 30-minute block.">L'aide à distance, c'est simple : vous n'avez pas à bouger ! Je peux vous guider par téléphone étape par étape, ou me connecter directement sur votre ordinateur (avec votre permission) à l'aide d'un logiciel sécurisé pour régler le problème comme si j'étais assis à côté de vous. C'est idéal pour les petits dépannages, les questions rapides ou les suivis après une visite. Le tarif est de 30 $ par tranche de 30 minutes.</p>
+      </div>
 
       <!-- Q4 -->
       <div style="background:var(--white); border-radius:var(--radius); padding:28px 32px; box-shadow:var(--shadow);">
@@ -970,7 +998,7 @@
   <p style="margin-top:8px;" data-fr="© 2025 Tech Complice. Tous droits réservés" data-en="© 2025 Tech Complice. All rights reserved">© 2025 Tech Complice. Tous droits réservés</p>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleMenu() {
     document.getElementById('nav-menu').classList.toggle('open');
     document.getElementById('hamburger').classList.toggle('open');
@@ -1019,9 +1047,9 @@
     document.getElementById('f-type').selectedIndex = 0;
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 </script>
 </body>
