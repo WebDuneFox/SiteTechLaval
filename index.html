@@ -735,7 +735,7 @@
     </h1>
     <p class="hero-slogan" data-fr="Restez dans le confort de votre foyer, on s'occupe de vous" data-en="Stay in the comfort of your home, we take care of you">Restez dans le confort de votre foyer, on s'occupe de vous</p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-hero-primary" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</a>
+      <button onclick="openBooking()" class="btn-hero-primary" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</button>
       <a href="#services" class="btn-hero-secondary" data-fr="Voir nos services" data-en="See Our Services">Voir nos services</a>
     </div>
     <div class="hero-stats">
@@ -864,7 +864,7 @@
         <div class="bct-title" data-fr="Vous êtes déjà prêt à me faire confiance ?" data-en="Ready to book your appointment?">Vous êtes déjà prêt à me faire confiance ?</div>
         <div class="bct-sub" data-fr="Réservez votre intervention informatique en quelques clics. Votre créneau est bloqué dès le paiement de la réservation. Vous pouvez annuler sans frais jusqu'à 24 h avant. Simple, rapide et sécurisé." data-en="Book your tech support visit in just a few clicks. Your time slot is secured upon payment. You can cancel free of charge up to 24 hours before. Simple, fast, and secure.">Réservez votre intervention informatique en quelques clics. Votre créneau est bloqué dès le paiement de la réservation. Vous pouvez annuler sans frais jusqu'à 24 h avant. Simple, rapide et sécurisé.</div>
       </div>
-      <a href="#contact" class="btn-booking" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</a>
+      <button onclick="openBooking()" class="btn-booking" data-fr="📅 Prendre un rendez-vous" data-en="📅 Book an Appointment">📅 Prendre un rendez-vous</button>
     </div>
   </div>
 </section>
@@ -977,6 +977,7 @@
             placeholder="Décrivez votre problème ou votre question..."></textarea>
         </div>
         <button class="btn-submit" onclick="submitForm()" data-fr="✉️ Envoyer le message" data-en="✉️ Send Message">✉️ Envoyer le message</button>
+        <button class="btn-submit" onclick="openBooking()" style="margin-top:12px; background: var(--navy); box-shadow: 0 4px 14px rgba(26,58,92,0.25);" data-fr="📅 Prendre un rendez-vous en ligne" data-en="📅 Book an Appointment Online">📅 Prendre un rendez-vous en ligne</button>
         <div id="form-success">
           <span data-fr="✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais." data-en="✅ Thank you! Your message has been sent. We will get back to you as soon as possible.">✅ Merci ! Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.</span>
         </div>
@@ -1034,6 +1035,89 @@
   <p style="margin-top:8px;" data-fr="© 2025 Tech Complice. Tous droits réservés" data-en="© 2025 Tech Complice. All rights reserved">© 2025 Tech Complice. Tous droits réservés</p>
 </footer>
 
+<!-- ═══════════════════════════════════════════════
+     POPUP PRISE DE RENDEZ-VOUS
+════════════════════════════════════════════════ -->
+<div id="booking-overlay" style="display:none; position:fixed; inset:0; background:rgba(18,41,68,0.72); z-index:1000; align-items:center; justify-content:center; padding:20px;">
+  <div id="booking-modal" style="background:#fff; border-radius:24px; max-width:480px; width:100%; box-shadow:0 24px 80px rgba(18,41,68,0.3); overflow:hidden; position:relative; animation: modalIn 0.25s ease;">
+
+    <!-- Header -->
+    <div style="background:var(--navy2); padding:28px 32px 24px; position:relative;">
+      <button onclick="closeBooking()" style="position:absolute; top:16px; right:18px; background:rgba(255,255,255,0.12); border:none; color:#fff; font-size:18px; width:32px; height:32px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+      <div style="font-size:28px; margin-bottom:8px;">📅</div>
+      <h3 id="bk-title" style="font-family:'DM Serif Display',serif; color:#fff; font-size:22px; margin:0 0 6px;">Prendre un rendez-vous</h3>
+      <p id="bk-sub" style="color:rgba(255,255,255,0.6); font-size:14px; margin:0;">Choisissez votre service et entrez votre code postal</p>
+    </div>
+
+    <!-- Étape 1 : choix service + code postal -->
+    <div id="bk-step1" style="padding:28px 32px 32px;">
+
+      <!-- Type de service -->
+      <div style="margin-bottom:20px;">
+        <label id="bk-label-service" style="display:block; font-weight:600; font-size:14px; color:var(--navy); margin-bottom:8px;">Type de service</label>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <button id="bk-btn-domicile" onclick="selectService('domicile')"
+            style="padding:14px 10px; border-radius:12px; border:2px solid var(--sky); background:var(--sky2); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; color:var(--navy); transition:all 0.2s; text-align:center;">
+            🏠 <span id="bk-txt-domicile">Visite à domicile</span>
+          </button>
+          <button id="bk-btn-distance" onclick="selectService('distance')"
+            style="padding:14px 10px; border-radius:12px; border:2px solid var(--sky); background:var(--sky2); cursor:pointer; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; color:var(--navy); transition:all 0.2s; text-align:center;">
+            🖥️ <span id="bk-txt-distance">Support à distance</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Code postal (affiché seulement pour domicile) -->
+      <div id="bk-postal-block" style="display:none; margin-bottom:20px;">
+        <label id="bk-label-postal" style="display:block; font-weight:600; font-size:14px; color:var(--navy); margin-bottom:8px;">Code postal</label>
+        <input id="bk-postal" type="text" maxlength="7"
+          placeholder="ex: H7T 2P9"
+          oninput="calcFrais()"
+          style="width:100%; padding:13px 16px; border:2px solid var(--sky); border-radius:12px; font-family:'DM Sans',sans-serif; font-size:16px; color:var(--text); outline:none; transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='var(--blue)'"
+          onblur="this.style.borderColor='var(--sky)'"
+        />
+        <!-- Résumé du prix -->
+        <div id="bk-price-info" style="display:none; margin-top:12px; padding:14px 16px; border-radius:12px; background:var(--sky2); border:1px solid var(--sky);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+            <span id="bk-price-label-base" style="font-size:14px; color:var(--muted);">Première heure</span>
+            <span style="font-size:14px; font-weight:600; color:var(--navy);">50 $</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span id="bk-price-label-travel" style="font-size:14px; color:var(--muted);">Frais de déplacement</span>
+            <span id="bk-price-travel" style="font-size:14px; font-weight:600; color:var(--accent);">—</span>
+          </div>
+          <div style="border-top:1px solid var(--sky); padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
+            <span id="bk-price-label-total" style="font-size:15px; font-weight:700; color:var(--navy);">Total estimé</span>
+            <span id="bk-price-total" style="font-size:18px; font-weight:700; color:var(--navy);">—</span>
+          </div>
+          <p id="bk-price-note" style="font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5;">* Le paiement se fait lors de la réservation. Des tranches supplémentaires de 30 min à 25 $ s'appliquent si nécessaire.</p>
+        </div>
+        <div id="bk-zone-unknown" style="display:none; margin-top:10px; padding:12px 14px; border-radius:10px; background:#fff3e0; border:1px solid #ffcc80;">
+          <p id="bk-zone-msg" style="font-size:13px; color:#e65100; margin:0;">⚠️ Ce code postal ne semble pas être dans notre zone de service (Laval). Contactez-nous pour confirmer.</p>
+        </div>
+      </div>
+
+      <!-- Bouton continuer -->
+      <button id="bk-continue" onclick="continueBooking()"
+        style="display:none; width:100%; padding:15px; border-radius:40px; border:none; background:var(--accent); color:#fff; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px rgba(224,123,42,0.35); transition:all 0.2s;"
+        onmouseover="this.style.background='var(--accent2)'"
+        onmouseout="this.style.background='var(--accent)'">
+        <span id="bk-continue-txt">Choisir une date →</span>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<style>
+@keyframes modalIn {
+  from { opacity:0; transform:translateY(20px) scale(0.97); }
+  to   { opacity:1; transform:translateY(0) scale(1); }
+}
+#booking-overlay.open { display:flex !important; }
+</style>
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   function toggleMenu() {
     document.getElementById('nav-menu').classList.toggle('open');
@@ -1046,6 +1130,185 @@
   document.addEventListener('click', function(e) {
     if (!document.querySelector('nav').contains(e.target)) closeMenu();
   });
+
+  // ═══════════════════════════════════════════
+  // LOGIQUE POPUP RENDEZ-VOUS
+  // ═══════════════════════════════════════════
+
+  // 🔧 REMPLACE CES LIENS PAR TES VRAIS LIENS CAL.COM
+  const CAL_DOMICILE_LOCAL    = 'https://cal.com/techcomplice/support-a-domicile-at-home-support?locale=fr';
+  const CAL_DOMICILE_ELOIGNE  = 'https://cal.com/techcomplice/support-a-domicile-at-home-support?locale=fr';
+  const CAL_DISTANCE          = 'https://cal.com/techcomplice/support-telephonique-phone-support?locale=fr';
+
+  // Codes postaux de la zone locale (frais 10$)
+  // Tout autre code postal de Laval = 20$
+  const ZONE_LOCALE = ['H7T', 'H7X', 'H7Y', 'H7V'];
+
+  // Tous les codes postaux de Laval (zone desservie)
+  const LAVAL_CODES = [
+    'H7A','H7B','H7C','H7E','H7G','H7H','H7J','H7K','H7L','H7M',
+    'H7N','H7P','H7R','H7S','H7T','H7V','H7W','H7X','H7Y','H7Z'
+  ];
+
+  let selectedService = null;
+  let selectedZone = null;
+
+  function openBooking() {
+    document.getElementById('booking-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // Reset
+    selectedService = null;
+    selectedZone = null;
+    document.getElementById('bk-postal').value = '';
+    document.getElementById('bk-price-info').style.display = 'none';
+    document.getElementById('bk-zone-unknown').style.display = 'none';
+    document.getElementById('bk-postal-block').style.display = 'none';
+    document.getElementById('bk-continue').style.display = 'none';
+    resetServiceButtons();
+    updateBookingLang();
+  }
+
+  function closeBooking() {
+    document.getElementById('booking-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Fermer en cliquant hors du modal
+  document.getElementById('booking-overlay').addEventListener('click', function(e) {
+    if (e.target === this) closeBooking();
+  });
+
+  function resetServiceButtons() {
+    ['bk-btn-domicile','bk-btn-distance'].forEach(id => {
+      const btn = document.getElementById(id);
+      btn.style.borderColor = 'var(--sky)';
+      btn.style.background = 'var(--sky2)';
+    });
+  }
+
+  function selectService(type) {
+    selectedService = type;
+    resetServiceButtons();
+    const btn = document.getElementById('bk-btn-' + type);
+    btn.style.borderColor = 'var(--accent)';
+    btn.style.background = '#fff5ec';
+
+    if (type === 'domicile') {
+      document.getElementById('bk-postal-block').style.display = 'block';
+      document.getElementById('bk-continue').style.display = 'none';
+      calcFrais();
+    } else {
+      document.getElementById('bk-postal-block').style.display = 'none';
+      document.getElementById('bk-continue').style.display = 'block';
+      selectedZone = 'distance';
+    }
+  }
+
+  function calcFrais() {
+    const raw = document.getElementById('bk-postal').value.trim().toUpperCase().replace(/\s/g,'');
+    const prefix = raw.slice(0, 3);
+    const priceInfo = document.getElementById('bk-price-info');
+    const zoneUnknown = document.getElementById('bk-zone-unknown');
+    const continueBtn = document.getElementById('bk-continue');
+
+    if (raw.length < 3) {
+      priceInfo.style.display = 'none';
+      zoneUnknown.style.display = 'none';
+      continueBtn.style.display = 'none';
+      selectedZone = null;
+      return;
+    }
+
+    if (!LAVAL_CODES.includes(prefix)) {
+      priceInfo.style.display = 'none';
+      zoneUnknown.style.display = 'block';
+      continueBtn.style.display = 'none';
+      selectedZone = null;
+      return;
+    }
+
+    zoneUnknown.style.display = 'none';
+    priceInfo.style.display = 'block';
+    continueBtn.style.display = 'block';
+
+    const isLocal = ZONE_LOCALE.includes(prefix);
+    selectedZone = isLocal ? 'local' : 'eloigne';
+    const frais = isLocal ? 10 : 20;
+    const total = 50 + frais;
+    const lang = currentLang;
+
+    document.getElementById('bk-price-travel').textContent = frais + ' $';
+    document.getElementById('bk-price-total').textContent = total + ' $';
+  }
+
+  function continueBooking() {
+    if (!selectedService) return;
+    let url = '';
+    if (selectedService === 'distance') {
+      url = CAL_DISTANCE;
+    } else if (selectedZone === 'local') {
+      url = CAL_DOMICILE_LOCAL;
+    } else if (selectedZone === 'eloigne') {
+      url = CAL_DOMICILE_ELOIGNE;
+    }
+    if (url) window.open(url, '_blank');
+    closeBooking();
+  }
+
+  // Traductions popup
+  const bookingTexts = {
+    fr: {
+      title: 'Prendre un rendez-vous',
+      sub: 'Choisissez votre service et entrez votre code postal',
+      labelService: 'Type de service',
+      domicile: 'Visite à domicile',
+      distance: 'Support à distance',
+      labelPostal: 'Code postal',
+      labelBase: 'Première heure',
+      labelTravel: 'Frais de déplacement',
+      labelTotal: 'Total estimé',
+      note: '* Le paiement se fait lors de la réservation. Des tranches supplémentaires de 30 min à 25 $ s\'appliquent si nécessaire.',
+      zoneMsg: '⚠️ Ce code postal ne semble pas être dans notre zone de service (Laval). Contactez-nous pour confirmer.',
+      continueTxt: 'Choisir une date →',
+      postalPlaceholder: 'ex: H7T 2P9'
+    },
+    en: {
+      title: 'Book an Appointment',
+      sub: 'Choose your service and enter your postal code',
+      labelService: 'Service Type',
+      domicile: 'Home Visit',
+      distance: 'Remote Support',
+      labelPostal: 'Postal Code',
+      labelBase: 'First hour',
+      labelTravel: 'Travel fee',
+      labelTotal: 'Estimated total',
+      note: '* Payment is made at booking. Additional 30-min blocks at $25 apply if needed.',
+      zoneMsg: '⚠️ This postal code does not appear to be in our service area (Laval). Contact us to confirm.',
+      continueTxt: 'Choose a date →',
+      postalPlaceholder: 'e.g. H7T 2P9'
+    }
+  };
+
+  function updateBookingLang() {
+    const t = bookingTexts[currentLang] || bookingTexts['fr'];
+    document.getElementById('bk-title').textContent = t.title;
+    document.getElementById('bk-sub').textContent = t.sub;
+    document.getElementById('bk-label-service').textContent = t.labelService;
+    document.getElementById('bk-txt-domicile').textContent = t.domicile;
+    document.getElementById('bk-txt-distance').textContent = t.distance;
+    document.getElementById('bk-label-postal').textContent = t.labelPostal;
+    document.getElementById('bk-price-label-base').textContent = t.labelBase;
+    document.getElementById('bk-price-label-travel').textContent = t.labelTravel;
+    document.getElementById('bk-price-label-total').textContent = t.labelTotal;
+    document.getElementById('bk-price-note').textContent = t.note;
+    document.getElementById('bk-zone-msg').textContent = t.zoneMsg;
+    document.getElementById('bk-continue-txt').textContent = t.continueTxt;
+    document.getElementById('bk-postal').placeholder = t.postalPlaceholder;
+  }
+
+  // ═══════════════════════════════════════════
+  // FIN LOGIQUE POPUP
+  // ═══════════════════════════════════════════
 
   let currentLang = 'fr';
   function setLang(lang) {
@@ -1066,6 +1329,7 @@
     });
     document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
     document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    updateBookingLang();
   }
 
   function submitForm() {
