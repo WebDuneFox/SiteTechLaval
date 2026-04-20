@@ -1098,6 +1098,9 @@
         </div>
       </div>
 
+      <!-- Message Cal.com -->
+      <p id="bk-cal-notice" style="display:none; font-size:13px; color:var(--muted); font-style:italic; text-align:center; margin-bottom:14px; line-height:1.6;">(Vous serez redirigé vers la plateforme de prise de rendez-vous Cal.com pour choisir votre date et effectuer le paiement.)</p>
+
       <!-- Bouton continuer -->
       <button id="bk-continue" onclick="continueBooking()"
         style="display:none; width:100%; padding:15px; border-radius:40px; border:none; background:var(--accent); color:#fff; font-family:'DM Sans',sans-serif; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px rgba(224,123,42,0.35); transition:all 0.2s;"
@@ -1196,10 +1199,12 @@
     if (type === 'domicile') {
       document.getElementById('bk-postal-block').style.display = 'block';
       document.getElementById('bk-continue').style.display = 'none';
+      document.getElementById('bk-cal-notice').style.display = 'none';
       calcFrais();
     } else {
       document.getElementById('bk-postal-block').style.display = 'none';
       document.getElementById('bk-continue').style.display = 'block';
+      document.getElementById('bk-cal-notice').style.display = 'block';
       selectedZone = 'distance';
     }
   }
@@ -1215,6 +1220,7 @@
       priceInfo.style.display = 'none';
       zoneUnknown.style.display = 'none';
       continueBtn.style.display = 'none';
+      document.getElementById('bk-cal-notice').style.display = 'none';
       selectedZone = null;
       return;
     }
@@ -1223,6 +1229,7 @@
       priceInfo.style.display = 'none';
       zoneUnknown.style.display = 'block';
       continueBtn.style.display = 'none';
+      document.getElementById('bk-cal-notice').style.display = 'none';
       selectedZone = null;
       return;
     }
@@ -1230,6 +1237,7 @@
     zoneUnknown.style.display = 'none';
     priceInfo.style.display = 'block';
     continueBtn.style.display = 'block';
+    document.getElementById('bk-cal-notice').style.display = 'block';
 
     const isLocal = ZONE_LOCALE.includes(prefix);
     selectedZone = isLocal ? 'local' : 'eloigne';
@@ -1270,7 +1278,8 @@
       note: '* Le paiement se fait lors de la réservation. Des tranches supplémentaires de 30 min à 25 $ s\'appliquent si nécessaire.',
       zoneMsg: '⚠️ Ce code postal ne semble pas être dans notre zone de service (Laval). Contactez-nous pour confirmer.',
       continueTxt: 'Choisir une date →',
-      postalPlaceholder: 'ex: H7T 2P9'
+      postalPlaceholder: 'ex: H7T 2P9',
+      calNotice: '(Vous serez redirigé vers la plateforme de prise de rendez-vous Cal.com pour choisir votre date et effectuer le paiement.)'
     },
     en: {
       title: 'Book an Appointment',
@@ -1285,7 +1294,8 @@
       note: '* Payment is made at booking. Additional 30-min blocks at $25 apply if needed.',
       zoneMsg: '⚠️ This postal code does not appear to be in our service area (Laval). Contact us to confirm.',
       continueTxt: 'Choose a date →',
-      postalPlaceholder: 'e.g. H7T 2P9'
+      postalPlaceholder: 'e.g. H7T 2P9',
+      calNotice: '(You will be redirected to Cal.com, our booking platform, to choose your date and complete payment.)'
     }
   };
 
@@ -1304,6 +1314,7 @@
     document.getElementById('bk-zone-msg').textContent = t.zoneMsg;
     document.getElementById('bk-continue-txt').textContent = t.continueTxt;
     document.getElementById('bk-postal').placeholder = t.postalPlaceholder;
+    document.getElementById('bk-cal-notice').textContent = t.calNotice;
   }
 
   // ═══════════════════════════════════════════
