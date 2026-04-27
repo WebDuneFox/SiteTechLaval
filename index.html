@@ -1079,6 +1079,9 @@
           onfocus="this.style.borderColor='var(--blue)'"
           onblur="this.style.borderColor='var(--sky)'"
         />
+        <p id="bk-postal-hint" style="display:none; font-size:12px; color:#e65100; margin-top:6px;">
+          ⚠️ Veuillez entrer votre code postal au complet (ex: H7T 2P9) pour voir le total et choisir une date.
+        </p>
         <!-- Résumé du prix -->
         <div id="bk-price-info" style="display:none; margin-top:12px; padding:14px 16px; border-radius:12px; background:var(--sky2); border:1px solid var(--sky);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
@@ -1212,13 +1215,13 @@
   }
 
   function calcFrais() {
-    const raw = document.getElementById('bk-postal').value.trim().toUpperCase().replace(/\s/g,'');
+    const raw = document.getElementById('bk-postal').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'');
     const prefix = raw.slice(0, 3);
     const priceInfo = document.getElementById('bk-price-info');
     const zoneUnknown = document.getElementById('bk-zone-unknown');
     const continueBtn = document.getElementById('bk-continue');
 
-    if (raw.length < 3) {
+    if (raw.length < 6) {
       priceInfo.style.display = 'none';
       zoneUnknown.style.display = 'none';
       continueBtn.style.display = 'none';
@@ -1236,10 +1239,12 @@
       return;
     }
 
-    zoneUnknown.style.display = 'none';
-    priceInfo.style.display = 'block';
-    continueBtn.style.display = 'block';
-    document.getElementById('bk-cal-notice').style.display = 'block';
+     const validPostal = /^[A-Z]\d[A-Z]\d[A-Z]\d$/.test(raw);
+     zoneUnknown.style.display = 'none';
+     priceInfo.style.display = 'block';
+     document.getElementById('bk-postal-hint').style.display = validPostal ? 'none' : 'block';
+     continueBtn.style.display = validPostal ? 'block' : 'none';
+     document.getElementById('bk-cal-notice').style.display = validPostal ? 'block' : 'none';
 
     const isLocal = ZONE_LOCALE.includes(prefix);
     selectedZone = isLocal ? 'local' : 'eloigne';
