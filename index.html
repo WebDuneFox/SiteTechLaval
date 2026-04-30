@@ -1124,6 +1124,30 @@
   to   { opacity:1; transform:translateY(0) scale(1); }
 }
 #booking-overlay.open { display:flex !important; }
+
+/* ── Responsive modal mobile/tablette ── */
+#booking-modal {
+  max-height: 90vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 600px) {
+  #booking-overlay {
+    align-items: flex-end !important;
+    padding: 0 !important;
+  }
+  #booking-modal {
+    border-radius: 24px 24px 0 0 !important;
+    max-width: 100% !important;
+    max-height: 92vh;
+    animation: modalInMobile 0.28s ease;
+  }
+  @keyframes modalInMobile {
+    from { opacity:0; transform:translateY(40px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+}
 </style>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -1164,6 +1188,7 @@
   function openBooking() {
     document.getElementById('booking-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
+    document.getElementById('booking-modal').scrollTop = 0;
     // Reset
     selectedService = null;
     selectedZone = null;
