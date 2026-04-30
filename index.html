@@ -1269,6 +1269,11 @@
      priceInfo.style.display = 'block';
      document.getElementById('bk-postal-hint').style.display = validPostal ? 'none' : 'block';
      continueBtn.style.display = validPostal ? 'block' : 'none';
+if (validPostal) {
+  setTimeout(() => {
+    document.getElementById('booking-modal').scrollTo({ top: 999, behavior: 'smooth' });
+  }, 50);
+}
      document.getElementById('bk-cal-notice').style.display = validPostal ? 'block' : 'none';
 
     const isLocal = ZONE_LOCALE.includes(prefix);
