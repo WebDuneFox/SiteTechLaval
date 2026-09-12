@@ -829,20 +829,20 @@
       <div class="price-card fade-up">
         <div class="price-icon">🚗</div>
         <h3 data-fr="Frais de déplacement" data-en="Travel Fee">Frais de déplacement</h3>
-        <div class="price-num"><sup>$</sup>10<span style="font-size:20px"> à </span>20</div>
+        <div class="price-num"><sup>$</sup>20<span style="font-size:20px"> à </span>30</div>
         <div class="price-sub" data-fr="Selon la distance à Laval" data-en="Based on distance within Laval">Selon la distance à Laval</div>
       </div>
       <div class="price-card fade-up">
         <div class="price-icon">⏱️</div>
         <h3 data-fr="Première heure" data-en="First Hour">Première heure</h3>
-        <div class="price-num"><sup>$</sup>50</div>
+        <div class="price-num"><sup>$</sup>60</div>
         <div class="price-sub" data-fr="Tarif de base pour l'intervention" data-en="Base rate for the service call">Tarif de base pour l'intervention</div>
       </div>
       <div class="price-card fade-up">
         <div class="price-icon">➕</div>
         <h3 data-fr="Tranche supplémentaire" data-en="Additional Time">Tranche supplémentaire</h3>
-        <div class="price-num"><sup>$</sup>25</div>
-        <div class="price-sub" data-fr="Par 30 minutes additionnelles" data-en="Per additional 30 minutes">Par 30 minutes additionnelles</div>
+        <div class="price-num"><sup>$</sup>15</div>
+        <div class="price-sub" data-fr="Par 15 minutes additionnelles" data-en="Per additional 15 minutes">Par 15 minutes additionnelles</div>
       </div>
       <div class="price-card featured fade-up">
         <div class="price-badge" data-fr="Urgent" data-en="Urgent">Urgent</div>
@@ -1087,7 +1087,7 @@
         <div id="bk-price-info" style="display:none; margin-top:12px; padding:14px 16px; border-radius:12px; background:var(--sky2); border:1px solid var(--sky);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
             <span id="bk-price-label-base" style="font-size:14px; color:var(--muted);">Première heure</span>
-            <span style="font-size:14px; font-weight:600; color:var(--navy);">50 $</span>
+            <span style="font-size:14px; font-weight:600; color:var(--navy);">60 $</span>
           </div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
             <span id="bk-price-label-travel" style="font-size:14px; color:var(--muted);">Frais de déplacement</span>
@@ -1173,8 +1173,8 @@
   const CAL_DOMICILE_ELOIGNE  = 'https://cal.com/techcomplice/support-a-domicile-at-home-support-2?locale=fr';
   const CAL_DISTANCE          = 'https://cal.com/techcomplice/support-telephonique-phone-support?locale=fr';
 
-  // Codes postaux de la zone locale (frais 10$)
-  // Tout autre code postal de Laval = 20$
+  // Codes postaux de la zone locale (frais 20$)
+  // Tout autre code postal de Laval = 30$
   const ZONE_LOCALE = ['H7T', 'H7N', 'H7M', 'H7P', 'H7L', 'H7W', 'H7V'];
 
   // Tous les codes postaux de Laval (zone desservie)
@@ -1279,8 +1279,8 @@ if (validPostal) {
 
     const isLocal = ZONE_LOCALE.includes(prefix);
     selectedZone = isLocal ? 'local' : 'eloigne';
-    const frais = isLocal ? 10 : 20;
-    const total = 50 + frais;
+    const frais = isLocal ? 20 : 30;
+    const total = 60 + frais;
     const lang = currentLang;
 
     document.getElementById('bk-price-travel').textContent = frais + ' $';
@@ -1313,7 +1313,7 @@ if (validPostal) {
       labelBase: 'Première heure',
       labelTravel: 'Frais de déplacement',
       labelTotal: 'Total estimé',
-      note: '* Le paiement se fait lors de la réservation. Tout dépassement sera facturé au tarif de 25 $ par tranche de 30 minutes additionnelles.',
+      note: '* Le paiement se fait lors de la réservation. Tout dépassement sera facturé au tarif de 15$ par tranche de 15 minutes additionnelles.',
       zoneMsg: '⚠️ Ce code postal ne semble pas être dans notre zone de service (Laval). Contactez-nous pour confirmer.',
       continueTxt: 'Choisir une date →',
       postalPlaceholder: 'ex: H7T 2P9',
@@ -1329,7 +1329,7 @@ if (validPostal) {
       labelBase: 'First hour',
       labelTravel: 'Travel fee',
       labelTotal: 'Estimated total',
-      note: '* Payment is made at booking. Additional 30-min blocks at $25 apply if needed.',
+      note: '* Payment is made at booking. Additional 15-minutes blocks at 15$ apply if needed.',
       zoneMsg: '⚠️ This postal code does not appear to be in our service area (Laval). Contact us to confirm.',
       continueTxt: 'Choose a date →',
       postalPlaceholder: 'e.g. H7T 2P9',
